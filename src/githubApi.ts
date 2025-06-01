@@ -1,4 +1,6 @@
-import { Octokit } from 'octokit';
+// Use the browser friendly build of Octokit to avoid pulling in node specific
+// modules such as `node-fetch` when bundling for the web.
+import { Octokit } from 'octokit/dist-web';
 
 const OWNER = 'theonize';
 const REPO = 'exegesis';
@@ -19,7 +21,9 @@ export async function fetchFileContent(path: string, token?: string | null): Pro
   const res = await octokit.rest.repos.getContent({ owner: OWNER, repo: REPO, path });
   if (!('content' in res.data)) throw new Error('Invalid content response');
   const data = res.data as unknown as { content: string };
-  return Buffer.from(data.content.replace(/\n/g, ''), 'base64').toString('utf8');
+  const decoded = atob(data.content.replace(/\n/g, ''));
+  // Use TextDecoder to properly decode UTF-8 content
+  return new TextDecoder().decode(Uint8Array.from(decoded, (c) => c.charCodeAt(0)));
 }
 
 export async function submitDocumentPR(path: string, content: string, token: string): Promise<void> {
@@ -35,7 +39,8 @@ export async function submitDocumentPR(path: string, content: string, token: str
     repo: REPO,
     path,
     message: `Add ${path}`,
-    content: Buffer.from(content, 'utf8').toString('base64'),
+    // Encode the content using btoa to avoid the Node `Buffer` API
+    content: btoa(unescape(encodeURIComponent(content))),
     branch,
   });
 
