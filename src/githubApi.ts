@@ -1,4 +1,4 @@
-const OWNER = 'theorize';
+const OWNER = 'theonize';
 const REPO = 'exegesis';
 const API = 'https://api.github.com';
 
