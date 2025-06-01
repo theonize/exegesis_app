@@ -15,7 +15,17 @@ This project provides a simple Vite + React frontend written in TypeScript using
    npm run dev
    ```
 
-The application now includes minimal GitHub integration. Users provide a
-personal access token to authenticate, search for documents in the
-`theorize/exegesis` repository, view their contents and submit or edit
-markdown files via automatically generated pull requests.
+### Configuration
+
+Create a `.env` file in the project root and set the following environment
+variable pointing to your GitHub OAuth app's client ID:
+
+```bash
+VITE_GH_OAUTH_CLIENT_ID=<your client id>
+```
+
+The application now includes minimal GitHub integration. Users can either
+authenticate with GitHub via OAuth or provide a personal access token. Once
+authenticated they can search for documents in the `theorize/exegesis`
+repository, view their contents and submit or edit markdown files via
+automatically generated pull requests.
