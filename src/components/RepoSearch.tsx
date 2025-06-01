@@ -10,7 +10,6 @@ export default function RepoSearch() {
   const [selected, setSelected] = useState<string | null>(null);
 
   async function handleSearch() {
-    if (!token) return;
     const files = await searchRepoFiles(query, token);
     setResults(files);
   }
@@ -19,7 +18,7 @@ export default function RepoSearch() {
     <div>
       <h2>Search Documents</h2>
       <input value={query} onChange={(e) => setQuery(e.target.value)} />
-      <button onClick={handleSearch} disabled={!token}>Search</button>
+      <button onClick={handleSearch}>Search</button>
       <ul>
         {results.map((path) => (
           <li key={path}>

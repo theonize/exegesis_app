@@ -10,7 +10,6 @@ export default function DocumentViewer({ path }: { path: string }) {
 
   useEffect(() => {
     async function load() {
-      if (!token) return;
       const c = await fetchFileContent(path, token);
       setContent(c);
       setEditText(c);

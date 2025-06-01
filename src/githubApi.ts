@@ -3,18 +3,18 @@ import { Octokit } from 'octokit';
 const OWNER = 'theonize';
 const REPO = 'exegesis';
 
-function createOctokit(token: string) {
-  return new Octokit({ auth: token });
+function createOctokit(token?: string | null) {
+  return token ? new Octokit({ auth: token }) : new Octokit();
 }
 
-export async function searchRepoFiles(query: string, token: string): Promise<string[]> {
+export async function searchRepoFiles(query: string, token?: string | null): Promise<string[]> {
   if (!query) return [];
   const octokit = createOctokit(token);
   const res = await octokit.rest.search.code({ q: `${query}+repo:${OWNER}/${REPO}` });
   return res.data.items.map((item) => item.path);
 }
 
-export async function fetchFileContent(path: string, token: string): Promise<string> {
+export async function fetchFileContent(path: string, token?: string | null): Promise<string> {
   const octokit = createOctokit(token);
   const res = await octokit.rest.repos.getContent({ owner: OWNER, repo: REPO, path });
   if (!('content' in res.data)) throw new Error('Invalid content response');
