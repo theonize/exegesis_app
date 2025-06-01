@@ -25,7 +25,8 @@ VITE_GH_OAUTH_CLIENT_ID=<your client id>
 ```
 
 The application now includes minimal GitHub integration. Users can either
-authenticate with GitHub via OAuth or provide a personal access token. Once
-authenticated they can search for documents in the `theorize/exegesis`
-repository, view their contents and submit or edit markdown files via
+authenticate with GitHub via OAuth or provide a personal access token.
+
+Unauthenticated users are still able to search the public repository and view
+documents. Authentication is only required when submitting or editing files via
 automatically generated pull requests.
