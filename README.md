@@ -15,4 +15,7 @@ This project provides a simple Vite + React frontend written in TypeScript using
    npm run dev
    ```
 
-The application currently contains placeholder text and a TODO for implementing GitHub authentication and repo interactions (commits and pull requests).
+The application now includes minimal GitHub integration. Users provide a
+personal access token to authenticate, search for documents in the
+`theorize/exegesis` repository, view their contents and submit or edit
+markdown files via automatically generated pull requests.
